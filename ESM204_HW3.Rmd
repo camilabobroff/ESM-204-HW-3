@@ -1,6 +1,6 @@
 ---
 title: "ESM204_HW3"
-author: "Camila Bobroff"
+author: "Camila Bobroff & Robert Heim"
 date: "5/16/2019"
 output: html_document
 ---
@@ -43,25 +43,26 @@ Regression model:
 $Pr(Voting~Yes) = `r round(intercept, digits = 4)` + `r round(age_30, digits=4)`(Age~to~30) + `r round(age_40, digits=4)`(Age~to~40) + `r round(age_50, digits=4)`(Age~to~50) + `r round(age_60, digits=4)`(Age~to~60) + `r round(income_one, digits=4)`(Income~One~Percent) + `r round(income_poor, digits=4)`(Income~Poor) + `r round(income_rich, digits=4)`(Income~Rich) + `r round(income_veryrich,digits=4)`(Income~Very~Rich) + `r round(nep, digits=4)`(NEP) + `r round(bid, digits=4)`(Bid) + `r round(risk, digits=4)`(Risk~Reduction)$
 
 Interpretation of Regression coefficients:
-- Risk
-- Bid
-- NEP
-Income reference level is middle:
-- Income one percent
-- Income poor
-- Income rich
-- Income very rich
+- Risk:
+- Bid:
+- NEP:
+Income reference level is middle
+- Income one percent:
+- Income poor:
+- Income rich:
+- Income very rich:
 Age refernce level is over 60
-- to 30
-- to 40
-- to 50
-- to 60
+- to 30:
+- to 40:
+- to 50:
+- to 60:
 
 Part 2. Based on the regression, what can you say about the value of a single prevented whale death? (Hint: Think about how risk reduction for all whales translates into the number of whale deaths avoided)
 
-Risk reduction = 20% -> 5 whales saved, ratio is constant
-If risk reduction = 4% -> 1 whale saved 
+Risk reduction (vessel speed reduction) = 20% -> 5 whales saved, given that ratio is constant:
+Risk reduction (vessel speed reduction) = 4% -> 1 whale saved. For value of a single whale, find willingness to pay for 0% risk reduction and compare to 4% risk reduction
 ```{r}
+
 
 
 ```
