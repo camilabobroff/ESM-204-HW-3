@@ -85,3 +85,11 @@ single_whale <- bid_4 - bid_0
 
 Part 3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.
 
+```{r}
+# Use random number generator to select three arbitrary respondents
+# 270 
+# 214
+# 472
+
+```
+
