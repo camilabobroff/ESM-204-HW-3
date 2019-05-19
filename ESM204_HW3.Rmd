@@ -17,8 +17,8 @@ library(tidyverse)
 data <- read_csv("HW3Data.csv")
 ```
 
-
 Part 1. Create a linear probability model that predicts a respondent's probability of voting 'yes' on the ballot based on their age, income, NEP score, the risk reduction offered by the program, and the cost of the program to that respondent. Show the model and interpret the regression coefficients.
+
 ```{r}
 
 vsr_lm <- lm(vote ~ risk + bid + NEP + income + age, data = data)
@@ -51,7 +51,7 @@ Income reference level is middle
 - Income poor:
 - Income rich:
 - Income very rich:
-Age refernce level is over 60
+Age reference level is over 60
 - to 30:
 - to 40:
 - to 50:
@@ -132,7 +132,6 @@ bid_sb <- (intercept + age_50 + (nep*38.366) + (risk*60) - avg_vote)/bid
 Part 5. If there are 150,000 households in Santa Barbara County, estimate the total benefit of a VSR program to these households
 
 ```{r}
-
 # Multiply bid_sb by 150,000
 
 total_benefit <- bid_sb*150000
@@ -143,5 +142,4 @@ total_benefit <- bid_sb*150000
 Part 6. Based on only these benefits, do the benefits of the VSR program outweigh the costs?
 
 Total benefit to SB residents is 9,671,402, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 2,671,402.
-
 
