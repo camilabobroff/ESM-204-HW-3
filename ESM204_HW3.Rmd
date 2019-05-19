@@ -81,6 +81,7 @@ bid_4 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote
 single_whale <- bid_4 - bid_0
 # -2.78 SOMETHING IS WRONG HERE...
 
-
 ```
+
+Part 3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.
 
