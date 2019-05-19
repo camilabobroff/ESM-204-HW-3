@@ -109,8 +109,6 @@ bid_362 <- (intercept + age_60 + (nep*47) + (risk*60) - avg_vote)/bid
 # Person 269
 bid_269 <- (intercept + age_40 + (nep*32) + (risk*60) - avg_vote)/bid
 # 58.1
-<<<<<<< HEAD
-
 ```
 
 Part 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households
@@ -145,12 +143,5 @@ total_benefit <- bid_sb*150000
 Part 6. Based on only these benefits, do the benefits of the VSR program outweigh the costs?
 
 Total benefit to SB residents is 9,671,402, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 2,671,402.
-
-=======
-
-```
-
-Part 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households
->>>>>>> 453e38609e4c16b4d9de36ffe0c82e4862fae711
 
 
