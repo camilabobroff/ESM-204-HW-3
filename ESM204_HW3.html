@@ -192,7 +192,7 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.1  
 ## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
@@ -202,7 +202,7 @@ $(document).ready(function () {
 <pre><code>## Warning: package 'purrr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'dplyr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'stringr' was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>data &lt;- read_csv(&quot;HW3Data.csv&quot;)</code></pre>
@@ -268,7 +268,7 @@ avg_nep &lt;- mean(data$NEP) # 38.366
 # Assume age = to thirty and income = middle
 
 # find bid for 0% risk reduction
-# QUESTION: why are we dividing by bid here? And why are the bids negative?
+# QUESTION: WHY ARE THE BIDS NEGATIVE?
 
 bid_0 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/bid
 # Bid_0 = -39.5
@@ -276,7 +276,21 @@ bid_0 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_v
 bid_4 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/bid
 # Bid_4 = -42.3
 
-# The value of a single prevented whale death</code></pre>
+# The value of a single prevented whale death is difference between willingness to pay of 4% and 0% vessel speed reduction
+
+single_whale &lt;- bid_4 - bid_0
+# -2.78 SOMETHING IS WRONG HERE...</code></pre>
+<p>Part 3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.</p>
+<pre class="r"><code># Randomly select three arbitrary respondents 
+sample(1:500, 3, replace = FALSE) # 372, 362, 269</code></pre>
+<pre><code>## [1]  41 214 202</code></pre>
+<pre class="r"><code>vsr_random &lt;- data %&gt;% # dataframe with only those 3 random respondents
+  slice(372, 362, 269)
+# risk = 40, bid = 80, vote = 0, NEP = 48, income = very rich, age = to 50
+# risk = 60, bid = 80, vote = 1, NEP = 47, income = middle, age = over 60
+# risk = 80, bid = 20, vote = 1, NEP = 32, income = very rich, age = to 40
+
+# Estimate WTP at 60% risk reduction</code></pre>
 
 
 
