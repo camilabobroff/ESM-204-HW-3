@@ -62,7 +62,24 @@ Part 2. Based on the regression, what can you say about the value of a single pr
 Risk reduction (vessel speed reduction) = 20% -> 5 whales saved, given that ratio is constant:
 Risk reduction (vessel speed reduction) = 4% -> 1 whale saved. For value of a single whale, find willingness to pay for 0% risk reduction and compare to 4% risk reduction
 ```{r}
+# Assume the average probability of voting yes is the average of the votes
+avg_vote <- mean(data$vote) # 0.714
+avg_nep <- mean(data$NEP) # 38.366
+# Assume age = to thirty and income = middle
 
+# find bid for 0% risk reduction
+# QUESTION: WHY ARE THE BIDS NEGATIVE?
+
+bid_0 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/bid
+# Bid_0 = -39.5
+
+bid_4 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/bid
+# Bid_4 = -42.3
+
+# The value of a single prevented whale death is difference between willingness to pay of 4% and 0% vessel speed reduction
+
+single_whale <- bid_4 - bid_0
+# -2.78 SOMETHING IS WRONG HERE...
 
 
 ```

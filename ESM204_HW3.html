@@ -192,7 +192,7 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.1  
 ## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
@@ -202,7 +202,7 @@ $(document).ready(function () {
 <pre><code>## Warning: package 'purrr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'dplyr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'stringr' was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ───────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>data &lt;- read_csv(&quot;HW3Data.csv&quot;)</code></pre>
@@ -259,9 +259,24 @@ age_40 &lt;- vsr_lm$coefficients[10]
 age_60 &lt;- vsr_lm$coefficients[11]
 age_30 &lt;- vsr_lm$coefficients[12]</code></pre>
 <p>Regression model: <span class="math inline">\(Pr(Voting~Yes) = 0.1197 + 0.0204(Age~to~30) + -0.0201(Age~to~40) + 0.01(Age~to~50) + -0.0162(Age~to~60) + 0.0088(Income~One~Percent) + 0.0027(Income~Poor) + 0.0075(Income~Rich) + 0.0468(Income~Very~Rich) + 0.0159(NEP) + -0.0011(Bid) + 7\times 10^{-4}(Risk~Reduction)\)</span></p>
-<p>Interpretation of Regression coefficients: - Risk - Bid - NEP Income reference level is middle: - Income one percent - Income poor - Income rich - Income very rich Age refernce level is over 60 - to 30 - to 40 - to 50 - to 60</p>
+<p>Interpretation of Regression coefficients: - Risk: - Bid: - NEP: Income reference level is middle - Income one percent: - Income poor: - Income rich: - Income very rich: Age refernce level is over 60 - to 30: - to 40: - to 50: - to 60:</p>
 <p>Part 2. Based on the regression, what can you say about the value of a single prevented whale death? (Hint: Think about how risk reduction for all whales translates into the number of whale deaths avoided)</p>
-<p>Risk reduction = 20% -&gt; 5 whales saved, ratio is constant If risk reduction = 4% -&gt; 1 whale saved</p>
+<p>Risk reduction (vessel speed reduction) = 20% -&gt; 5 whales saved, given that ratio is constant: Risk reduction (vessel speed reduction) = 4% -&gt; 1 whale saved. For value of a single whale, find willingness to pay for 0% risk reduction and compare to 4% risk reduction</p>
+<pre class="r"><code># Assume the average probability of voting yes is the average of the votes
+avg_vote &lt;- mean(data$vote) # 0.714
+avg_nep &lt;- mean(data$NEP) # 38.366
+# Assume age = to thirty and income = middle
+
+# find bid for 0% risk reduction
+# QUESTION: why are we dividing by bid here? And why are the bids negative?
+
+bid_0 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/bid
+# Bid_0 = -39.5
+
+bid_4 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/bid
+# Bid_4 = -42.3
+
+# The value of a single prevented whale death</code></pre>
 
 
 
