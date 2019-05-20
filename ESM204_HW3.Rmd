@@ -68,17 +68,16 @@ avg_nep <- mean(data$NEP) # 38.366
 # Assume age = to thirty and income = middle
 
 # find bid for 0% risk reduction
-# QUESTION: WHY ARE THE BIDS NEGATIVE? 
 
-bid_0 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/bid
-# Bid_0 = -39.5
+bid_0 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/-bid
+# Bid_0 = 39.5
 
-bid_4 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/bid
-# Bid_4 = -42.3
+bid_4 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/-bid
+# Bid_4 = 42.3
 
 # The value of a single prevented whale death is difference between willingness to pay of 4% and 0% vessel speed reduction
 
-single_whale <- bid_0 - bid_4
+single_whale <- bid_4 - bid_0
 # 2.78
 
 ```
@@ -96,19 +95,20 @@ vsr_random <- data %>% # dataframe with only those 3 random respondents
 # risk = 80, bid = 20, vote = 1, NEP = 32, income = very rich, age = to 40
 
 # Estimate WTP at 60% risk reduction
-# QUESTION: WHY ARE SOME OF THE BIDS NEGATIVE? 
 
 # Person 372
-bid_372 <- (intercept + age_50 + income_veryrich + (nep*48) + (risk*60) - avg_vote)/bid
-# -251
+bid_372 <- (intercept + age_50 + income_veryrich + (nep*48) + (risk*60) - avg_vote)/-bid
+# 251
 
 # Person 362
-bid_362 <- (intercept + age_60 + (nep*47) + (risk*60) - avg_vote)/bid
-# -168
+bid_362 <- (intercept + age_60 + (nep*47) + (risk*60) - avg_vote)/-bid
+# 168
 
-# Person 269
-bid_269 <- (intercept + age_40 + (nep*32) + (risk*60) - avg_vote)/bid
-# 58.1
+# Person 269 
+#DOES IT MAKE SENSE THAT THIS PERSON HAS A NEGATIVE WTP?
+
+bid_269 <- (intercept + age_40 + (nep*32) + (risk*60) - avg_vote)/-bid
+# -58.1
 ```
 
 Part 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households
@@ -118,14 +118,14 @@ Part 4. Now repeat this process and estimate the mean WTP for a VSR program offe
 
 ave_income <- data %>% 
   count(income == "very_rich", income == "rich", income == "poor", income == "one_percent", income == "middle")
-# Middle income is rich
+# Median income is rich
 
 ave_age <- data %>% 
   count(age == "tothirty", age == "toforty", age == "tofifty", age == "tosixty", age == "oversixty")
-# To fifty is middle age
+# To fifty is median age
 
-bid_sb <- (intercept + age_50 + (nep*38.366) + (risk*60) - avg_vote)/bid
-# -64.5
+bid_sb <- (intercept + age_50 + (nep*38.366) + (risk*60) - avg_vote)/-bid
+# 64.5
 
 ```
 
@@ -135,7 +135,7 @@ Part 5. If there are 150,000 households in Santa Barbara County, estimate the to
 # Multiply bid_sb by 150,000
 
 total_benefit <- bid_sb*150000
-# -9,671,402
+# 9,671,402
 
 ```
 
