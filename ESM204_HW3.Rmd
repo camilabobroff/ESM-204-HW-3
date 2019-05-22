@@ -143,3 +143,23 @@ Part 6. Based on only these benefits, do the benefits of the VSR program outweig
 
 Total benefit to SB residents is 9,671,402, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 2,671,402.
 
+Part 7. Suppose the price of carbon credits is $Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the 7 million cost, of implementing the VSR would be avoided)
+
+20*Z = 1000
+Z* = $50 to reduce 1 ton
+
+Part 8. Now suppose the carbon credit price is exactly Z*, so all ships voluntarily reduce speed to achieve the 60% risk reduction. Approximately how many whales would be saved by this? What would be the social value of allowing ships to enter the carbon trading market?
+
+20% reduction saves at least 5 whales, assuming a constant ratio, a 60% reduction ratio saves at least 15 whales.
+
+The social value of the whale reduction program is total benefit minus total cost. Given that the carbon credits would avoid the 7 million cost of implementing the VSR, the social value is simply the total benefit of the VSR program.
+
+```{r}
+
+#15*2.78 = WTP
+
+social_value <- (single_whale*15*150000)
+#6,262,649
+```
+
+
