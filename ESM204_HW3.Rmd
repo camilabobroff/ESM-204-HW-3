@@ -65,7 +65,7 @@ Risk reduction (vessel speed reduction) = 4% -> 1 whale saved. For value of a si
 # Assume the average probability of voting yes is the average of the votes
 avg_vote <- mean(data$vote) # 0.714
 avg_nep <- mean(data$NEP) # 38.366
-# Assume age = to thirty and income = middle
+# Assume age = to thirty and income = rich
 
 # find bid for 0% risk reduction
 
@@ -124,8 +124,8 @@ ave_age <- data %>%
   count(age == "tothirty", age == "toforty", age == "tofifty", age == "tosixty", age == "oversixty")
 # To fifty is median age
 
-bid_sb <- (intercept + age_50 + (nep*38.366) + (risk*60) - avg_vote)/-bid
-# 64.5
+bid_sb <- (intercept + age_50 + income_veryrich + (nep*38.366) + (risk*60) - avg_vote)/-bid
+# 108
 
 ```
 
@@ -135,13 +135,13 @@ Part 5. If there are 150,000 households in Santa Barbara County, estimate the to
 # Multiply bid_sb by 150,000
 
 total_benefit <- bid_sb*150000
-# 9,671,402
+# 16,231,694
 
 ```
 
 Part 6. Based on only these benefits, do the benefits of the VSR program outweigh the costs?
 
-Total benefit to SB residents is 9,671,402, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 2,671,402.
+Total benefit to SB residents is 16,231,694, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 9,321,694.
 
 Part 7. Suppose the price of carbon credits is $Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the 7 million cost, of implementing the VSR would be avoided)
 
@@ -159,6 +159,7 @@ The social value of the whale reduction program is total benefit minus total cos
 #15*2.78 = WTP
 
 social_value <- (single_whale*15*150000)
+social_value
 #6,262,649
 ```
 

@@ -192,7 +192,7 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ──────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.1.0       ✔ purrr   0.3.1  
 ## ✔ tibble  2.0.1       ✔ dplyr   0.8.0.1
 ## ✔ tidyr   0.8.3       ✔ stringr 1.4.0  
@@ -202,7 +202,7 @@ $(document).ready(function () {
 <pre><code>## Warning: package 'purrr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'dplyr' was built under R version 3.5.2</code></pre>
 <pre><code>## Warning: package 'stringr' was built under R version 3.5.2</code></pre>
-<pre><code>## ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>data &lt;- read_csv(&quot;HW3Data.csv&quot;)</code></pre>
@@ -259,7 +259,7 @@ age_40 &lt;- vsr_lm$coefficients[10]
 age_60 &lt;- vsr_lm$coefficients[11]
 age_30 &lt;- vsr_lm$coefficients[12]</code></pre>
 <p>Regression model: <span class="math inline">\(Pr(Voting~Yes) = 0.1197 + 0.0204(Age~to~30) + -0.0201(Age~to~40) + 0.01(Age~to~50) + -0.0162(Age~to~60) + 0.0088(Income~One~Percent) + 0.0027(Income~Poor) + 0.0075(Income~Rich) + 0.0468(Income~Very~Rich) + 0.0159(NEP) + -0.0011(Bid) + 7\times 10^{-4}(Risk~Reduction)\)</span></p>
-<p>Interpretation of Regression coefficients: - Risk: - Bid: - NEP: Income reference level is middle - Income one percent: - Income poor: - Income rich: - Income very rich: Age refernce level is over 60 - to 30: - to 40: - to 50: - to 60:</p>
+<p>Interpretation of Regression coefficients: - Risk: - Bid: - NEP: Income reference level is middle - Income one percent: - Income poor: - Income rich: - Income very rich: Age reference level is over 60 - to 30: - to 40: - to 50: - to 60:</p>
 <p>Part 2. Based on the regression, what can you say about the value of a single prevented whale death? (Hint: Think about how risk reduction for all whales translates into the number of whale deaths avoided)</p>
 <p>Risk reduction (vessel speed reduction) = 20% -&gt; 5 whales saved, given that ratio is constant: Risk reduction (vessel speed reduction) = 4% -&gt; 1 whale saved. For value of a single whale, find willingness to pay for 0% risk reduction and compare to 4% risk reduction</p>
 <pre class="r"><code># Assume the average probability of voting yes is the average of the votes
@@ -268,29 +268,71 @@ avg_nep &lt;- mean(data$NEP) # 38.366
 # Assume age = to thirty and income = middle
 
 # find bid for 0% risk reduction
-# QUESTION: WHY ARE THE BIDS NEGATIVE?
 
-bid_0 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/bid
-# Bid_0 = -39.5
+bid_0 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/-bid
+# Bid_0 = 39.5
 
-bid_4 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/bid
-# Bid_4 = -42.3
+bid_4 &lt;- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/-bid
+# Bid_4 = 42.3
 
 # The value of a single prevented whale death is difference between willingness to pay of 4% and 0% vessel speed reduction
 
 single_whale &lt;- bid_4 - bid_0
-# -2.78 SOMETHING IS WRONG HERE...</code></pre>
+# 2.78</code></pre>
 <p>Part 3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.</p>
 <pre class="r"><code># Randomly select three arbitrary respondents 
 sample(1:500, 3, replace = FALSE) # 372, 362, 269</code></pre>
-<pre><code>## [1]  41 214 202</code></pre>
+<pre><code>## [1] 204 110  93</code></pre>
 <pre class="r"><code>vsr_random &lt;- data %&gt;% # dataframe with only those 3 random respondents
   slice(372, 362, 269)
 # risk = 40, bid = 80, vote = 0, NEP = 48, income = very rich, age = to 50
 # risk = 60, bid = 80, vote = 1, NEP = 47, income = middle, age = over 60
 # risk = 80, bid = 20, vote = 1, NEP = 32, income = very rich, age = to 40
 
-# Estimate WTP at 60% risk reduction</code></pre>
+# Estimate WTP at 60% risk reduction
+
+# Person 372
+bid_372 &lt;- (intercept + age_50 + income_veryrich + (nep*48) + (risk*60) - avg_vote)/-bid
+# 251
+
+# Person 362
+bid_362 &lt;- (intercept + age_60 + (nep*47) + (risk*60) - avg_vote)/-bid
+# 168
+
+# Person 269 
+#DOES IT MAKE SENSE THAT THIS PERSON HAS A NEGATIVE WTP?
+
+bid_269 &lt;- (intercept + age_40 + (nep*32) + (risk*60) - avg_vote)/-bid
+# -58.1</code></pre>
+<p>Part 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households</p>
+<pre class="r"><code># Use average age (tofifty), nep(38.366), vote(0.714), and income(rich) for Santa Barbara County
+
+ave_income &lt;- data %&gt;% 
+  count(income == &quot;very_rich&quot;, income == &quot;rich&quot;, income == &quot;poor&quot;, income == &quot;one_percent&quot;, income == &quot;middle&quot;)
+# Median income is rich
+
+ave_age &lt;- data %&gt;% 
+  count(age == &quot;tothirty&quot;, age == &quot;toforty&quot;, age == &quot;tofifty&quot;, age == &quot;tosixty&quot;, age == &quot;oversixty&quot;)
+# To fifty is median age
+
+bid_sb &lt;- (intercept + age_50 + (nep*38.366) + (risk*60) - avg_vote)/-bid
+# 64.5</code></pre>
+<p>Part 5. If there are 150,000 households in Santa Barbara County, estimate the total benefit of a VSR program to these households</p>
+<pre class="r"><code># Multiply bid_sb by 150,000
+
+total_benefit &lt;- bid_sb*150000
+# 9,671,402</code></pre>
+<p>Part 6. Based on only these benefits, do the benefits of the VSR program outweigh the costs?</p>
+<p>Total benefit to SB residents is 9,671,402, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 2,671,402.</p>
+<p>Part 7. Suppose the price of carbon credits is $Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the 7 million cost, of implementing the VSR would be avoided)</p>
+<p>20<em>Z = 1000 Z</em> = $50 to reduce 1 ton</p>
+<p>Part 8. Now suppose the carbon credit price is exactly Z*, so all ships voluntarily reduce speed to achieve the 60% risk reduction. Approximately how many whales would be saved by this? What would be the social value of allowing ships to enter the carbon trading market?</p>
+<p>20% reduction saves at least 5 whales, assuming a constant ratio, a 60% reduction ratio saves at least 15 whales.</p>
+<p>The social value of the whale reduction program is total benefit minus total cost. Given that the carbon credits would avoid the 7 million cost of implementing the VSR, the social value is simply the total benefit of the VSR program.</p>
+<pre class="r"><code>#15*2.78 = WTP
+
+social_value &lt;- (single_whale*15*150000)
+#6,262,649</code></pre>
 
 
 
