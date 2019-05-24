@@ -62,18 +62,18 @@ Part 2. Based on the regression, what can you say about the value of a single pr
 Risk reduction (vessel speed reduction) = 20% -> 5 whales saved, given that ratio is constant:
 Risk reduction (vessel speed reduction) = 4% -> 1 whale saved. For value of a single whale, find willingness to pay for 0% risk reduction and compare to 4% risk reduction
 ```{r}
-# Assume the average probability of voting yes is the average of the votes
-avg_vote <- mean(data$vote) # 0.714
+# Assume the average probability of voting yes is 0.5
+avg_vote <- 0.5
 avg_nep <- mean(data$NEP) # 38.366
 # Assume age = to thirty and income = rich
 
 # find bid for 0% risk reduction
 
 bid_0 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*0) - avg_vote)/-bid
-# Bid_0 = 39.5
+# Bid_0 = 240
 
 bid_4 <- (intercept + age_30 + income_rich + (nep*avg_nep) + (risk*4) - avg_vote)/-bid
-# Bid_4 = 42.3
+# Bid_4 = 242
 
 # The value of a single prevented whale death is difference between willingness to pay of 4% and 0% vessel speed reduction
 
@@ -98,17 +98,15 @@ vsr_random <- data %>% # dataframe with only those 3 random respondents
 
 # Person 372
 bid_372 <- (intercept + age_50 + income_veryrich + (nep*48) + (risk*60) - avg_vote)/-bid
-# 251
+# 451
 
 # Person 362
 bid_362 <- (intercept + age_60 + (nep*47) + (risk*60) - avg_vote)/-bid
-# 168
+# 368
 
 # Person 269 
-#DOES IT MAKE SENSE THAT THIS PERSON HAS A NEGATIVE WTP?
-
 bid_269 <- (intercept + age_40 + (nep*32) + (risk*60) - avg_vote)/-bid
-# -58.1
+# 142
 ```
 
 Part 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households
@@ -125,7 +123,7 @@ ave_age <- data %>%
 # To fifty is median age
 
 bid_sb <- (intercept + age_50 + income_veryrich + (nep*38.366) + (risk*60) - avg_vote)/-bid
-# 108
+# 308
 
 ```
 
@@ -135,13 +133,13 @@ Part 5. If there are 150,000 households in Santa Barbara County, estimate the to
 # Multiply bid_sb by 150,000
 
 total_benefit <- bid_sb*150000
-# 16,231,694
+# 46,234,622
 
 ```
 
 Part 6. Based on only these benefits, do the benefits of the VSR program outweigh the costs?
 
-Total benefit to SB residents is 16,231,694, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 9,321,694.
+Total benefit to SB residents is 46,234,622, which outweighs the cost of implementing the VSR program (7 million). The net benefit of the program is 39,234,622.
 
 Part 7. Suppose the price of carbon credits is $Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the 7 million cost, of implementing the VSR would be avoided)
 
